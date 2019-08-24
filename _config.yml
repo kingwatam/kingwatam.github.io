@@ -1,0 +1,8 @@
+title: Otherworldly King Studios
+description: 
+google_analytics: UA-71602287-1
+show_downloads: true
+theme: jekyll-theme-minimal
+
+gems:
+  - jekyll-mentions
