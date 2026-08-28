@@ -1,0 +1,57 @@
+{
+  "identity": {
+    "name": "King Wa Tam",
+    "headline": "PhD · Epidemiology & Health Economics",
+    "availability": "Open to research & data roles"
+  },
+  "links": [
+    { "label": "Google Scholar", "url": "https://scholar.google.com/citations?user=y76Kz1oAAAAJ" },
+    { "label": "ORCID", "url": "https://orcid.org/0000-0003-1465-6468" },
+    { "label": "GitHub", "url": "https://github.com/kingwatam" },
+    { "label": "LinkedIn", "url": "https://www.linkedin.com/in/kingwatam" }
+  ],
+  "bioNarrative": [
+    "A PhD-trained researcher with over a decade of expertise in epidemiology, statistics, health economics, and quantitative social science, including over two years of postdoctoral fellowship at the Chinese University of Hong Kong and the University of Calgary. My work has taken me from Australia to Hong Kong to Canada, and as a consultant to the World Bank.",
+    "My work spans study design, statistical modelling, manuscript drafting, peer-review revision, and translating quantitative findings for diverse stakeholders, resulting in twelve peer-reviewed publications in journals such as PLOS Medicine, Cancers, BMC Geriatrics, and JMIR Public Health and Surveillance.",
+    "Alongside my research, I also have hands-on experience with independent agentic AI projects by leveraging rapid prototyping, automated testing, and software design to improve the efficiency, reproducibility, reliability, and scalability of my workflows."
+  ],
+  "education": [
+    { "degree": "PhD", "field": "Public Health & Epidemiology", "institution": "University of Queensland", "year": 2022 },
+    { "degree": "MBus (Research)", "field": "", "institution": "Queensland University of Technology", "year": 2013 },
+    { "degree": "BEcon", "field": "Quantitative Methods", "institution": "University of Queensland", "year": 2009 }
+  ],
+  "researchThemes": [
+    {
+      "title": "Biostatistics",
+      "description": "Meta-analysis, systematic reviews, multi-level modelling, causal inference methods, and more.",
+      "journals": ["JMIR Public Health and Surveillance", "BMC Public Health"]
+    },
+    {
+      "title": "Cancer Epidemiology",
+      "description": "Survival analysis and subsequent neoplasm risk in childhood cancer survivors; breast cancer screening and health literacy.",
+      "journals": ["Cancers", "Frontiers in Oncology"]
+    },
+    {
+      "title": "Ageing & Multimorbidity",
+      "description": "Geriatric mental health, cognitive impairment, long COVID, and chronic disease management in primary care populations.",
+      "journals": ["BMC Geriatrics", "Journal of Global Health"]
+    },
+    {
+      "title": "Health-Economic Modelling & Policy",
+      "description": "Cost-effectiveness and simulation models evaluating taxes on sugar-sweetened beverages, alcohol, and salt, informing policy in Egypt, Nigeria, Indonesia, Mongolia, Australia, and India.",
+      "journals": ["Public Health in Practice", "PLoS Medicine"]
+    }
+  ],
+  "skills": {
+    "core": ["Epidemiology", "Statistics", "Health economics", "Meta-analysis", "Scientific writing", "Data visualization"],
+    "analytical": ["R", "Excel", "Stata", "SQL", "QGIS", "Ersatz", "DisMod II"],
+    "dev": ["OpenCode", "Git", "Python", "C#", "VBA"]
+  },
+  "languages": [
+    { "level": "Fluent", "items": ["English", "Cantonese", "Mandarin"] },
+    { "level": "Intermediate", "items": ["French", "Spanish"] },
+    { "level": "Basic", "items": ["Russian"] }
+  ],
+  "textureLine": "Snowboarding & skiing · Piano · Fitness · Sourdough · Creative writing",
+  "interestsLine": "AI · Philosophy · Psychology · Medicine · Computer science · Linguistics · Speculative fiction"
+}

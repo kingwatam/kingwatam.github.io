@@ -1,0 +1,576 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import PubRow from '../components/PubRow.astro';
+import profile from '../data/profile.json';
+import publications from '../data/publications.json';
+import certificates from '../data/certificates.json';
+import projects from '../data/projects.json';
+
+const featured = publications.filter(p => p.featured);
+
+const skillLabels = { core: 'Research', analytical: 'Analytical Tools', dev: 'Developer & AI Tools' };
+
+/* Glue each "·" to the preceding word so wrapped lines never start with a dot;
+   .sk keeps multi-word skills (e.g. "Data visualization") unbroken. */
+const SEP = '<span class="sk-sep">\u00A0·</span>';
+const skillLine = (arr) =>
+  arr.map((s, i) => (i === 0 ? `<span class="sk">${s}</span>` : `${SEP} <span class="sk">${s}</span>`)).join(' ');
+const langLine = profile.languages
+  .map(g => `<span class="sk">${g.level}:</span> ${g.items.join(', ')}`)
+  .join(`${SEP} `);
+
+const certAreas = ['AI & Computer Science', 'Medicine & Health', 'Writing & Humanities']
+  .map(group => {
+    const slug = group.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+    const items = certificates.filter(c => c.group === group);
+    return {
+      group,
+      slug,
+      count: items.length,
+      entries: items.map(c => ({
+        title: c.title,
+        meta: c.isSpecialization ? `${c.courses.length}-course specialization` : '',
+        issuer: c.issuer,
+        id: c.id,
+      })),
+    };
+  });
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": profile.identity.name,
+  "url": "https://kingwatam.github.io/",
+  "sameAs": profile.links.map(l => l.url),
+  "knowsLanguage": ["en", "yue", "zh"],
+  "hasOccupation": {
+    "@type": "Occupation",
+    "name": "Epidemiologist & Health Economist"
+  },
+  "alumniOf": profile.education.map(e => ({
+    "@type": "EducationalOrganization",
+    "name": e.institution
+  }))
+};
+---
+
+<BaseLayout
+  title="Personal Website"
+  description="PhD epidemiologist and health-economics modeller. Peer-reviewed publications, World Bank consulting, and independent builder in agentic AI."
+  jsonLd={jsonLd}
+>
+
+  <!-- Intro -->
+  <section id="about" class="intro">
+    <div class="container">
+      <div class="about-grid">
+        <div class="about-main">
+          <h1 class="name">{profile.identity.name}</h1>
+          <p class="headline">
+            <span class="type-mono">{profile.identity.headline}</span>
+            {profile.identity.availability && (
+              <span class="chip">{profile.identity.availability}</span>
+            )}
+          </p>
+          <div class="about-narrative">
+            {profile.bioNarrative.map(para => (
+              <p>{para}</p>
+            ))}
+          </div>
+          <div class="hero-links">
+            {profile.links.map(link => (
+              <a href={link.url} target="_blank" rel="noopener me" class="link-arrow">{link.label}</a>
+            ))}
+          </div>
+        </div>
+        <aside class="about-edu">
+          <h2 class="type-mono edu-heading">Education</h2>
+          {profile.education.map(edu => (
+            <div class="edu-entry">
+              <strong>{edu.degree}{edu.field ? ` ${edu.field}` : ''}</strong>
+              <span>{edu.institution}</span>
+            </div>
+          ))}
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Research -->
+  <section id="research" class="section">
+    <div class="container">
+      <SectionHeading kicker="Research" />
+      <div class="research-grid">
+        {profile.researchThemes.map(theme => (
+          <div class="research-tile">
+            <h3 class="type-h3">{theme.title}</h3>
+            <p class="research-desc">{theme.description}</p>
+            <div class="tag-row">
+              {theme.journals.map(j => (
+                <span class="tag">{j}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Capabilities -->
+  <section id="capabilities" class="section">
+    <div class="container">
+      <SectionHeading kicker="Skills & Languages" />
+      <div class="skills-grid">
+        {Object.entries(profile.skills).map(([key, items]) => (
+          <div class="skill-col">
+            <h3 class="type-mono skill-label">{skillLabels[key]}</h3>
+            <p class="skill-items" set:html={skillLine(items)} />
+          </div>
+        ))}
+      </div>
+      <div class="lang-row">
+        <h3 class="type-mono skill-label">Languages</h3>
+        <p class="skill-items" set:html={langLine} />
+      </div>
+      <div class="texture-row">
+        <h3 class="type-mono skill-label">Interests &amp; Hobbies</h3>
+        <p class="texture-line" set:html={profile.textureLine.split('·').join('\u00A0·')} />
+        <p class="texture-line" set:html={profile.interestsLine.split('·').join('\u00A0·')} />
+      </div>
+    </div>
+  </section>
+
+  <!-- Selected Publications -->
+  <section id="publications" class="section">
+    <div class="container">
+      <SectionHeading kicker="Selected Publications" />
+      <div class="pub-list">
+        {featured.map(pub => (
+          <PubRow pub={pub} />
+        ))}
+      </div>
+      <p class="section-footnote">
+        <a href="/publications" class="link-arrow">Full publication list</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Other certificates -->
+  <section id="certificates" class="section">
+    <div class="container">
+      <SectionHeading kicker="Other certificates" />
+      {certAreas.map(area => (
+        <details class="cert-area">
+          <summary>
+            <span class="cert-area-name">{area.group}</span>
+            <span class="cert-area-right">
+              <span class="cert-area-count">{area.count}</span>
+              <span class="cert-area-toggle" aria-hidden="true">+</span>
+            </span>
+          </summary>
+          <ul class="cert-area-list">
+            {area.entries.map(entry => (
+              <li>
+                <span>{entry.title}{entry.meta && ` (${entry.meta})`}</span>
+                <span class="li-right">
+                  <span class="cert-area-issuer">{entry.issuer}</span>
+                  <a
+                    class="pdf-tag"
+                    href={`/certificates#pdf-${entry.id}`}
+                    title="View this certificate in the full list"
+                  >PDF</a>
+                </span>
+              </li>
+            ))}
+          </ul>
+        </details>
+      ))}
+      <p class="section-footnote">
+        <a href="/certificates" class="link-arrow">All MOOC certificates available as PDF</a>
+      </p>
+    </div>
+  </section>
+
+<!-- Agentic projects -->
+  <section id="projects" class="section">
+    <div class="container">
+      <SectionHeading kicker="Projects" />
+      <p class="building-copy">
+        Beyond research, I design and develop my own software with agentic AI coding tools,
+        including dashboards, browser extensions, and this site. The rigour I bring to study
+        design carries over: version control, automated testing, and reproducible workflows.
+      </p>
+      <div class="projects-list">
+        {projects.map(project => (
+          <details class="project-area">
+            <summary>
+              <span class="project-header">
+                <span class="project-title">{project.title}</span>
+                <span class="project-tagline">{project.tagline}</span>
+              </span>
+              <span class="project-toggle" aria-hidden="true">+</span>
+            </summary>
+            <div class="project-content">
+              <a href={project.links.repo} target="_blank" rel="noopener" class="project-image-link">
+                <img src={project.image} alt={project.title} loading="lazy" class="project-image" />
+              </a>
+              <p class="project-links">
+                <a href={project.links.repo} target="_blank" rel="noopener" class="link-arrow">
+                  View on GitHub
+                </a>
+              </p>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .intro {
+    padding-block: clamp(2rem, 5vw, 3.5rem);
+  }
+
+  .name {
+    font-size: clamp(2.25rem, 5.5vw, 4rem);
+    font-weight: 600;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+  }
+
+  .headline {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 1rem;
+    margin-top: 0.9rem;
+  }
+
+  .headline .type-mono {
+    color: var(--ink-muted);
+  }
+
+  .hero-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1.5rem;
+    margin-top: 1.5rem;
+    padding-bottom: clamp(0.25rem, 1vw, 0.75rem);
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 7fr) minmax(13rem, 4fr);
+    gap: clamp(1.75rem, 4vw, 3.5rem);
+    align-items: start;
+  }
+
+  .about-narrative {
+    max-width: 38rem;
+    margin-top: 1.5rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+  .about-narrative p + p {
+    margin-top: 1rem;
+  }
+
+  .edu-heading {
+    color: var(--ink-muted);
+    margin-bottom: 0.75rem;
+  }
+
+  .edu-entry {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--hairline);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+  }
+
+  .edu-entry strong {
+    font-weight: 600;
+  }
+
+  /* Other certificates collapsible areas */
+  .cert-area {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .cert-area summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.15s ease;
+  }
+
+  .cert-area summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .cert-area summary::marker {
+    content: "";
+  }
+
+  .cert-area summary:hover {
+    background: color-mix(in srgb, var(--ink) 3%, transparent);
+  }
+
+  .cert-area-name {
+    font-weight: 500;
+  }
+
+  .cert-area-right {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.75rem;
+  }
+
+  .cert-area-count {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+  }
+
+  .cert-area-toggle {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+    transition: transform 0.2s ease;
+  }
+
+  .cert-area[open] .cert-area-toggle {
+    transform: rotate(45deg);
+  }
+
+  .cert-area-list {
+    list-style: none;
+    padding: 0.25rem 0 1rem;
+  }
+
+  .cert-area-list li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.35rem 0;
+    font-size: 0.875rem;
+  }
+
+  .li-right {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    margin-left: auto;
+  }
+
+  .pdf-tag {
+    font-family: var(--font-mono);
+    font-size: 0.5625rem;
+    letter-spacing: 0.1em;
+    color: var(--ink-muted);
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    padding: 0.1em 0.4em;
+    white-space: nowrap;
+    text-decoration: none;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .pdf-tag:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .cert-area-issuer {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.04em;
+    color: var(--ink-muted);
+    text-align: right;
+  }
+
+  .research-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.5rem;
+  }
+
+  /* Capabilities */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: clamp(1.5rem, 3vw, 3rem);
+    margin-bottom: 1.75rem;
+  }
+
+  .skill-label {
+    color: var(--ink-muted);
+    margin-bottom: 0.5rem;
+  }
+
+  .skill-items {
+    font-size: 0.9375rem;
+    line-height: 1.7;
+  }
+
+  .lang-row {
+    padding-bottom: 1.75rem;
+    border-bottom: 1px solid var(--hairline);
+    margin-bottom: 1.75rem;
+  }
+
+  .texture-line {
+    font-size: 0.875rem;
+  }
+
+  @media (max-width: 900px) {
+    .skills-grid {
+      grid-template-columns: 1fr;
+      gap: 1.25rem;
+    }
+  }
+
+  .research-tile {
+    padding: 1.5rem;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+  }
+
+  .research-desc {
+    margin: 0.75rem 0 1rem;
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+
+  .tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.375rem;
+  }
+
+  .pub-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .section-footnote {
+    margin-top: 1.5rem;
+  }
+
+  .building-copy {
+    max-width: 42rem;
+    margin-bottom: 1.75rem;
+    font-size: 1rem;
+    line-height: 1.7;
+  }
+
+/* Projects */
+  .projects-list {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .project-area {
+    border-bottom: 1px solid var(--hairline);
+  }
+
+  .project-area summary {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.85rem 0;
+    cursor: pointer;
+    list-style: none;
+    transition: background 0.15s ease;
+  }
+
+  .project-area summary::-webkit-details-marker {
+    display: none;
+  }
+
+  .project-area summary::marker {
+    content: "";
+  }
+
+  .project-area summary:hover {
+    background: color-mix(in srgb, var(--ink) 3%, transparent);
+  }
+
+  .project-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .project-title {
+    font-weight: 500;
+  }
+
+  .project-tagline {
+    color: var(--ink-muted);
+    font-size: 0.875rem;
+    line-height: 1.5;
+  }
+
+  .project-toggle {
+    font-family: var(--font-mono);
+    color: var(--ink-muted);
+    flex-shrink: 0;
+    transition: transform 0.2s ease;
+  }
+
+  .project-area[open] .project-toggle {
+    transform: rotate(45deg);
+  }
+
+  .project-content {
+    padding: 0.5rem 0 1.25rem;
+  }
+
+  .project-image {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 1px solid var(--hairline);
+    border-radius: var(--radius);
+    transition: border-color 0.15s ease;
+  }
+
+  .project-image-link:hover .project-image {
+    border-color: var(--ink-muted);
+  }
+
+  .project-links {
+    margin-top: 0.75rem;
+  }
+
+  .link-arrow:hover {
+    color: var(--accent);
+  }
+
+  .link-arrow::after {
+    content: "→";
+    margin-left: 0.35em;
+  }
+
+  @media (max-width: 900px) {
+    .about-grid {
+      grid-template-columns: 1fr;
+    }
+    .research-grid {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

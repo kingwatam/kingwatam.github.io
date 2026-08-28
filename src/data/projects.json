@@ -1,0 +1,24 @@
+[
+  {
+    "id": "trading",
+    "title": "BTCUSDT Trading Dashboards",
+    "tagline": "Two paper-trading dashboards (Shiny for Python + R) with backtesting, live paper trading, strategy leaderboard, and stop-loss management",
+    "image": "/projects/python-bt-equity.png",
+    "links": {
+      "repo": "https://github.com/kingwatam/trading"
+    },
+    "tags": ["Python", "R", "Shiny", "Trading"],
+    "order": 1
+  },
+  {
+    "id": "page-monitor",
+    "title": "Page Monitor",
+    "tagline": "Chrome extension that auto-refreshes any web page and alerts you when your trigger text appears",
+    "image": "/projects/page-monitor.png",
+    "links": {
+      "repo": "https://github.com/kingwatam/page-monitor"
+    },
+    "tags": ["Chrome Extension", "JavaScript", "MV3"],
+    "order": 2
+  }
+]
