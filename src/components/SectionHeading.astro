@@ -1,0 +1,17 @@
+---
+interface Props {
+  kicker: string;
+}
+
+const { kicker } = Astro.props;
+---
+
+<div class="section-header">
+  <span class="section-kicker">{kicker}</span>
+</div>
+
+<style>
+  .section-header {
+    margin-bottom: clamp(1.5rem, 4vw, 3rem);
+  }
+</style>

@@ -1,0 +1,44 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page not found"
+  description="This page does not exist on kingwatam.github.io."
+>
+  <div class="not-found">
+    <p class="type-mono code">404</p>
+    <h1>Page not found</h1>
+    <p>The address may be mistyped, or the page has moved.</p>
+    <p><a href="/" class="link-arrow">Back to home</a></p>
+  </div>
+</BaseLayout>
+
+<style>
+  .not-found {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    text-align: center;
+    gap: 0.5rem;
+    padding-inline: 1.5rem;
+  }
+
+  .code {
+    font-size: clamp(3rem, 10vw, 6rem);
+    color: var(--ink-muted);
+    letter-spacing: 0.08em;
+  }
+
+  h1 {
+    font-size: var(--type-h3);
+    font-weight: 600;
+  }
+
+  p {
+    color: var(--ink-muted);
+    font-size: 0.9375rem;
+  }
+</style>
