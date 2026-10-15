@@ -1,0 +1,169 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import CertCard from '../components/CertCard.astro';
+import certificates from '../data/certificates.json';
+
+const GROUP_ORDER = ['AI & Computer Science', 'Medicine & Health', 'Writing & Humanities'];
+
+const grouped = GROUP_ORDER.map(g => ({
+  group: g,
+  certs: certificates.filter(c => c.group === g),
+}));
+
+const specializations = certificates.filter(c => c.isSpecialization).length;
+const standalone = certificates.length - specializations;
+
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "CollectionPage",
+  "name": "MOOC Certificates",
+  "description": `MOOC certificates and specializations — ${specializations} specializations and ${standalone} standalone courses.`,
+};
+---
+
+<BaseLayout
+  title="MOOC Certificates"
+  description={`MOOC specializations and courses across AI, computer science, medicine, writing, and languages.`}
+  jsonLd={jsonLd}
+>
+  <section class="section" style="border-top: none;">
+    <div class="container">
+      <a href="/#certificates" class="back-link"><span aria-hidden="true">&#8592;</span> Back</a>
+      <SectionHeading kicker="MOOC Certificates" />
+      <p class="certs-intro">
+        {specializations} specializations (expandable to individual courses) and {standalone} standalone
+        courses. Select any entry to view its certificate.
+      </p>
+      {grouped.map(({ group, certs }) => (
+        <details class="cert-section" id={group.toLowerCase().replace(/[^a-z0-9]+/g, '-')} open>
+          <summary class="cert-group-heading">
+            <span>{group}</span>
+            <span class="cert-sec-toggle" aria-hidden="true">+</span>
+          </summary>
+          <div class="cert-list">
+            {certs.map(cert => (
+              <CertCard cert={cert} />
+            ))}
+          </div>
+        </details>
+      ))}
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // Inline PDF viewer: normal clicks expand a lazy iframe under the row;
+  // modified/middle clicks fall through to the plain link (new tab).
+  // #pdf-<id> deep links (from the homepage chips) auto-open that entry.
+  const rows = document.querySelectorAll<HTMLAnchorElement>('[data-pdf]');
+  let openBtn: HTMLAnchorElement | null = null;
+
+  function closeViewer() {
+    document.querySelectorAll('.pdf-frame').forEach(f => f.remove());
+    openBtn?.setAttribute('aria-expanded', 'false');
+    openBtn = null;
+  }
+
+  function openViewer(btn: HTMLAnchorElement) {
+    for (
+      let d: HTMLDetailsElement | null = btn.closest('details');
+      d;
+      d = d.parentElement?.closest('details') ?? null
+    ) {
+      d.open = true;
+    }
+    closeViewer();
+
+    const frame = document.createElement('div');
+    frame.className = 'pdf-frame';
+    const iframe = document.createElement('iframe');
+    iframe.loading = 'lazy';
+    iframe.title = btn.dataset.title ?? 'Certificate PDF';
+    iframe.src = btn.getAttribute('href') ?? '';
+    frame.appendChild(iframe);
+
+    btn.insertAdjacentElement('afterend', frame);
+    btn.setAttribute('aria-expanded', 'true');
+    openBtn = btn;
+  }
+
+  rows.forEach(btn => {
+    btn.addEventListener('click', e => {
+      if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button !== 0) return;
+      e.preventDefault();
+      if (btn === openBtn) {
+        closeViewer();
+        return;
+      }
+      openViewer(btn);
+    });
+  });
+
+  function openFromHash() {
+    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+    if (target instanceof HTMLAnchorElement && target.hasAttribute('data-pdf')) {
+      openViewer(target);
+      target.scrollIntoView({ block: 'center' });
+    }
+  }
+  if (location.hash) openFromHash();
+  window.addEventListener('hashchange', openFromHash);
+</script>
+
+<style>
+  .certs-intro {
+    max-width: 42rem;
+    margin-bottom: 2rem;
+    color: var(--ink-muted);
+  }
+
+  .cert-section {
+    margin-bottom: 2.5rem;
+  }
+
+  .cert-group-heading {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    cursor: pointer;
+    list-style: none;
+    font-family: var(--font-mono);
+    font-size: var(--type-micro);
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-muted);
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--ink);
+    transition: color 0.15s ease;
+  }
+
+  .cert-group-heading::-webkit-details-marker {
+    display: none;
+  }
+
+  .cert-group-heading::marker {
+    content: "";
+  }
+
+  .cert-group-heading:hover,
+  .cert-section[open] .cert-group-heading {
+    color: var(--ink);
+  }
+
+  .cert-sec-toggle {
+    transition: transform 0.2s ease;
+  }
+
+  .cert-section[open] .cert-sec-toggle {
+    transform: rotate(45deg);
+  }
+
+  .cert-list {
+    display: flex;
+    flex-direction: column;
+    margin-top: 0.9rem;
+  }
+</style>

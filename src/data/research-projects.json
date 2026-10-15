@@ -1,0 +1,32 @@
+[
+  {
+    "id": "wb_griffith",
+    "title": "World Bank & Griffith University consulting projects (2022-2026)",
+    "tagline": "Disease burden modelling for health tax policy using GBD data, DisMod II and Excel life table models",
+    "repo": "https://github.com/kingwatam/wb_griffith"
+  },
+  {
+    "id": "cepr_ucalgary",
+    "title": "UCalgary research project (2024-2025)",
+    "tagline": "Late mortality and subsequent primary neoplasms among childhood cancer survivors",
+    "repo": "https://github.com/kingwatam/cepr_ucalgary"
+  },
+  {
+    "id": "sphpc_cuhk",
+    "title": "CUHK SPHPC research projects (2020-2024)",
+    "tagline": "Community eHealth, multimorbidity, mental health and health-services research",
+    "repo": "https://github.com/kingwatam/sphpc_cuhk"
+  },
+  {
+    "id": "csrp_hku",
+    "title": "HKU CSRP research projects (2019-2020)",
+    "tagline": "School mental health, suicide epidemiology, poverty and health services",
+    "repo": "https://github.com/kingwatam/csrp_hku"
+  },
+  {
+    "id": "sph_uq",
+    "title": "UQ SPH research project (2014-2022)",
+    "tagline": "Energy balance, risk factor distribution prediction and Markov Monte Carlo simulation of health burden",
+    "repo": "https://github.com/kingwatam/sph_uq"
+  }
+]
