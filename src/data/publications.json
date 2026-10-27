@@ -1,0 +1,134 @@
+[
+  {
+    "id": "dalugoda-2026-egypt",
+    "title": "The potential health effects of taxing sugar-sweetened drinks in Egypt: An epidemiologic-economic modelling study",
+    "authors": ["Dalugoda Y", "Tam KW", "Mandeville KL", "El-Saharty S", "Hamza MM", "Veerman JL"],
+    "journal": "Public Health in Practice",
+    "year": 2026,
+    "doi": "10.1016/j.puhip.2026.100786",
+    "myRole": "coauthor",
+    "featured": true,
+    "themes": ["policy"]
+  },
+  {
+    "id": "tam-2026-cancers",
+    "title": "Subsequent Primary Neoplasms and Mortality Among Survivors of Childhood Cancer in Alberta, Canada",
+    "authors": ["Tam KW", "Pitt TM", "Reynolds K", "Spavor M", "Truong TH", "Giles J", "Guilcher GM", "Logie N", "Rahamatullah I", "Schulte F", "Fidler-Benaoudia MM"],
+    "journal": "Cancers",
+    "year": 2026,
+    "doi": "10.3390/cancers18040694",
+    "myRole": "first",
+    "featured": true,
+    "themes": ["cancer"]
+  },
+  {
+    "id": "tam-2025-meaning",
+    "title": "Meaning in life: bidirectional relationship with depression, anxiety, and loneliness in a longitudinal cohort of older primary care patients with multimorbidity",
+    "authors": ["Tam KW", "Zhang D", "Li Y", "Xu Z", "Li Q", "Zhao Y", "Niu L", "Wong SYS"],
+    "journal": "BMC Geriatrics",
+    "year": 2025,
+    "doi": "10.1186/s12877-025-05762-7",
+    "myRole": "first",
+    "featured": true,
+    "themes": ["ageing"]
+  },
+  {
+    "id": "poon-2025-diabetes",
+    "title": "Social and health service-related factors associated with undiagnosed diabetes mellitus — a population-based survey in a highly urbanized Chinese setting",
+    "authors": ["Poon PKM", "Tam KW^", "Yip BHK", "Chung RY", "Lee EKP", "Wong SYS"],
+    "journal": "BMC Public Health",
+    "year": 2025,
+    "doi": "10.1186/s12889-025-22048-0",
+    "myRole": "cofirst",
+    "featured": true,
+    "themes": ["ageing"]
+  },
+  {
+    "id": "xu-2024-longcovid",
+    "title": "Excess risks of long COVID symptoms compared with identical symptoms in the general population: A systematic review and meta-analysis of studies with control groups",
+    "authors": ["Xu Z", "Wang W", "Zhang D", "Tam KW", "Li Y", "Chan DCC", "Yang Z", "Wong SYS"],
+    "journal": "Journal of Global Health",
+    "year": 2024,
+    "doi": "10.7189/jogh.14.05022",
+    "myRole": "coauthor",
+    "featured": false,
+    "themes": ["ageing", "methods"]
+  },
+  {
+    "id": "xu-2024-walking",
+    "title": "The Effect of Walking on Depressive and Anxiety Symptoms: Systematic Review and Meta-Analysis",
+    "authors": ["Xu Z", "Zheng X", "Ding H", "Zhang D", "Cheung PMH", "Yang Z", "Tam KW", "Zhou W"],
+    "journal": "JMIR Public Health and Surveillance",
+    "year": 2024,
+    "doi": "10.2196/48355",
+    "myRole": "coauthor",
+    "featured": false,
+    "themes": ["ageing", "methods"]
+  },
+  {
+    "id": "zhang-2023-postcovid",
+    "title": "Determinants of post-COVID-19 symptoms among adults aged 55 or above with chronic conditions in primary care: data from a prospective cohort in Hong Kong",
+    "authors": ["Zhang D", "Chung VCH", "Chan DCC", "Xu Z", "Zhou W", "Tam KW", "Lee RCM"],
+    "journal": "Frontiers in Public Health",
+    "year": 2023,
+    "doi": "10.3389/fpubh.2023.1138147",
+    "myRole": "coauthor",
+    "featured": false,
+    "themes": ["ageing"]
+  },
+  {
+    "id": "poon-2023-breast",
+    "title": "Poor health literacy associated with stronger perceived barriers to breast cancer screening and overestimated breast cancer risk",
+    "authors": ["Poon PK", "Tam KW^", "Lam T", "Luk AK", "Chu WC", "Cheung P", "Wong SY", "Sung JJ"],
+    "journal": "Frontiers in Oncology",
+    "year": 2023,
+    "doi": "10.3389/fonc.2022.1053698",
+    "myRole": "cofirst",
+    "featured": true,
+    "themes": ["cancer"]
+  },
+  {
+    "id": "poon-2022-cognitive",
+    "title": "Handgrip strength but not SARC-F score predicts cognitive impairment in older adults with multimorbidity in primary care: a cohort study",
+    "authors": ["Poon PK", "Tam KW^", "Zhang D", "Yip BH", "Woo J", "Wong SY"],
+    "journal": "BMC Geriatrics",
+    "year": 2022,
+    "doi": "10.1186/s12877-022-03034-2",
+    "myRole": "cofirst",
+    "featured": false,
+    "themes": ["ageing"]
+  },
+  {
+    "id": "tam-2019-underreporting",
+    "title": "Prevalence and characteristics of energy intake under-reporting among Australian adults in 1995 and 2011 to 2012",
+    "authors": ["Tam KW", "Veerman JL"],
+    "journal": "Nutrition & Dietetics",
+    "year": 2019,
+    "doi": "10.1111/1747-0080.12565",
+    "myRole": "first",
+    "featured": false,
+    "themes": ["policy"]
+  },
+  {
+    "id": "cobiac-2017-taxes",
+    "title": "Taxes and subsidies for improving diet and population health in Australia: a cost-effectiveness modelling study",
+    "authors": ["Cobiac LJ", "Tam K", "Veerman L", "Blakely T"],
+    "journal": "PLoS Medicine",
+    "year": 2017,
+    "doi": "10.1371/journal.pmed.1002232",
+    "myRole": "coauthor",
+    "featured": false,
+    "themes": ["policy", "methods"]
+  },
+  {
+    "id": "tam-2016-language",
+    "title": "Effects of language proficiency on labour, social and health outcomes of immigrants in Australia",
+    "authors": ["Tam KW", "Page L"],
+    "journal": "Economic Analysis and Policy",
+    "year": 2016,
+    "doi": "10.1016/j.eap.2016.08.003",
+    "myRole": "first",
+    "featured": false,
+    "themes": ["policy"]
+  }
+]
